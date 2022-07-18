@@ -34,7 +34,7 @@ MATCH (p:Process), (s:Source) RETURN p, s;
 CREATE (ssip:Process:Improvement {name: "7-Step Improvement Process", abb: "SSIP"});
 CREATE (acm:Process:Operations {name: "Access Management", abb: "ACM"});
 CREATE (avm:Process:Design {name: "Availability Management", abb: "AVM"});
-CREATE (brm:Process:Strategy {name: "Business Relationship Management" abb: "BRM" role: "BIZ Manager"});
+CREATE (brm:Process:Strategy {name: "Business Relationship Management", abb: "BRM", role: "BIZ Manager"});
 CREATE (capm:Process:Design {name: "Capacity Management", abb: "CPM"});
 CREATE (ce:Process:Transition {name: "Change Evaluation", abb: "CHE"});
 CREATE (chm:Process:Transition {name: "Change Management", abb: "CHM", role: "Change Manager"});
@@ -105,7 +105,7 @@ MATCH (p:Process), (s:Source) WHERE p.name = "Information Security Management" A
 MATCH (p1:Process), (p2:Process) WHERE p1.name = "Information Security Management" AND p2.name = "Request Fulfillment" CREATE (p1)-[:REPORTS_TO {items: "Security Policy"}]->(p2) RETURN p1, p2;
 MATCH (p1:Process), (p2:Process) WHERE p1.name = "IT-Service Continuity Management" AND p2.name = "Change Management" CREATE (p1)-[:REPORTS_TO {items: "RfC"}]->(p2) RETURN p1, p2;
 MATCH (p1:Process), (p2:Process) WHERE p1.name = "IT-Service Continuity Management" AND p2.name = "Release & Deployment Management" CREATE (p1)-[:REPORTS_TO {items: "Continuity Plan"}]->(p2) RETURN p1, p2;
-MATCH (p:Process), (s:Source) WHERE s.name = "Known Error Database" AND p.name = "Incident Managment" CREATE (s)-[:SERVES]->(p) RETURN p, s;
+MATCH (p:Process), (s:Source) WHERE s.name = "Known Error Database" AND p.name = "Incident Management" CREATE (s)-[:SERVES]->(p) RETURN p, s;
 MATCH (p:Process), (s:Source) WHERE p.name = "Knowledge Management" AND s.name = "Service Knowledge Management System" CREATE (p)-[:FILLS]->(s) RETURN p, s;
 MATCH (p1:Process), (p2:Process) WHERE p1.name = "Problem Management" AND p2.name = "Change Management" CREATE (p1)-[:REPORTS_TO {items: "RfC"}]->(p2) RETURN p1, p2;
 MATCH (p:Process), (s:Source) WHERE p.name = "Problem Management" AND s.name = "Configuration Management Database" CREATE (p)-[:FILLS]->(s) RETURN p, s;
