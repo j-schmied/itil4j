@@ -113,16 +113,23 @@ MATCH (p1:Process), (p2:Process) WHERE p1.name = "Transition Planning & Support"
 
 ## How to Use
 
-### Get all dependencies of one Process
+### Get all dependencies of one Process/Source
 
 ```cypher
-MATCH (p:Process {name: "<Process Name>"}) OPTIONAL MATCH (p)-[r]-(f) RETURN p, r, f;
+MATCH (p:[Process|Source] {[name: "<Process Name>"|abb: "<Abb>"]}) OPTIONAL MATCH (p)-[r]-(f) RETURN p, r, f;
+```
+
+Example: 
+
+```cypher
+MATCH (p:Process {name: "Incident Management"}) OPTIONAL MATCH (p)-[r]-(f) RETURN p, r, f;
+MATCH (p:Source {abb: "CMS"}) OPTIONAL MATCH (p)-[r]-(f) RETURN p, r, f;
 ```
 
 ### Get all Processes of one lifecycle phase
 
 ```cypher
-MATCH (p:Process:<Phase>) RETURN p;
+MATCH (p:Process:[Phase]) RETURN p;
 ```
 
 Phases are:
