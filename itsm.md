@@ -34,7 +34,7 @@ MATCH (p:Process), (s:Source) RETURN p, s;
 CREATE (ssip:Process:Improvement {name: "7-Step Improvement Process", abb: "SSIP"});
 CREATE (acm:Process:Operations {name: "Access Management", abb: "ACM"});
 CREATE (avm:Process:Design {name: "Availability Management", abb: "AVM"});
-CREATE (brm:Process:Strategy {name: "Business Relationship Management", abb: "BRM", role: "BIZ Manager"});
+CREATE (brm:Process:Strategy {name: "Business Relationship Management" abb: "BRM" role: "BIZ Manager"});
 CREATE (capm:Process:Design {name: "Capacity Management", abb: "CPM"});
 CREATE (ce:Process:Transition {name: "Change Evaluation", abb: "CHE"});
 CREATE (chm:Process:Transition {name: "Change Management", abb: "CHM", role: "Change Manager"});
@@ -127,7 +127,7 @@ MATCH (p1:Process), (p2:Process) WHERE p1.name = "Service Level Management" AND 
 MATCH (p1:Process), (p2:Process) WHERE p1.name = "Service Level Management" AND p2.name = "Capacity Management" CREATE (p1)-[:REPORTS_TO {items: "SLA"}]->(p2) RETURN p1, p2;
 MATCH (p1:Process), (p2:Process) WHERE p1.name = "Service Level Management" AND p2.name = "Incident Management" CREATE (p1)-[:REPORTS_TO {items: "SLA"}]->(p2) RETURN p1, p2;
 MATCH (p1:Process), (p2:Process) WHERE p1.name = "Service Portfolio Management" AND p2.name = "Service Catalogue Management" CREATE (p1)-[:REPORTS_TO {items: "Service Portfolio"}]->(p2) RETURN p1, p2;
-MATCH (p1:Process), (p2:Process) WHERE p1.name = "Service Problem Management" AND p2.name = "Business Relationship Management" CREATE (p1)-[:REPORTS_TO {items: "Service Portfolio"}]->(p2) RETURN p1, p2;
+MATCH (p1:Process), (p2:Process) WHERE p1.name = "Service Portfolio Management" AND p2.name = "Business Relationship Management" CREATE (p1)-[:REPORTS_TO {items: "Service Portfolio"}]->(p2) RETURN p1, p2;
 MATCH (p1:Process), (p2:Process) WHERE p1.name = "Service Validation & Testing" AND p2.name = "Release & Deployment Management" CREATE (p1)-[:REPORTS_TO {items: "Test Report"}]->(p2) RETURN p1, p2;
 MATCH (p1:Process), (p2:Process) WHERE p1.name = "Service Validation & Testing" AND p2.name = "Change Management" CREATE (p1)-[:REPORTS_TO {items: "RfC"}]->(p2) RETURN p1, p2;
 MATCH (p1:Process), (p2:Process) WHERE p1.name = "Strategy Management" AND p2.name = "7-Step Improvement Process" CREATE (p1)-[:REPORTS_TO {items: "Business Strategy"}]->(p2) RETURN p1, p2;
