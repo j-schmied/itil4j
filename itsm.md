@@ -1,33 +1,5 @@
 # ITSM in Cipher
 
-## Common Queries
-
-### Get all dependencies of one Process
-
-```cypher
-MATCH (p:Process {name: "<Process Name>"}) OPTIONAL MATCH (p)-[r]-(f) RETURN p, r, f;
-```
-
-### Get all Processes of one lifecycle phase
-
-```cypher
-MATCH (p:Process:Phase) RETURN p;
-```
-
-Phases are:
-
-* Strategy
-* Design
-* Transition
-* Operations
-* Improvement
-
-### Get complete dependenciy graph
-
-```cypher
-MATCH (p:Process), (s:Source) RETURN p, s;
-```
-
 ## Create Nodes (ITIL Processes)
 
 ```cypher
