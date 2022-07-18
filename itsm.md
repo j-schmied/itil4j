@@ -34,12 +34,12 @@ CREATE (tps:Process:Transition {name: "Transition Planning & Support", abb: "TPS
 ## Create Nodes (ITIL Sources)
 
 ```cypher
-CREATE (cmdb:Source {name: "Configuration Management Database"});
-CREATE (cms:Source {name: "Configuration Management System"});
-CREATE (dml:Source {name: "Definitive Media Library"});
-CREATE (kedb:Source {name: "Known Error Database"});
-CREATE (sc:Source {name: "Service Catalogue"});
-CREATE (skms:Source {name: "Service Knowledge Management System"});
+CREATE (cmdb:Source {name: "Configuration Management Database", abb: "CMDB"});
+CREATE (cms:Source {name: "Configuration Management System", abb: "CMS"});
+CREATE (dml:Source {name: "Definitive Media Library", abb: "DML"});
+CREATE (kedb:Source {name: "Known Error Database", abb: "KEDB"});
+CREATE (sc:Source {name: "Service Catalogue", abb: "SC"});
+CREATE (skms:Source {name: "Service Knowledge Management System", abb: "SKMS"});
 ```
 
 ## Create Relations

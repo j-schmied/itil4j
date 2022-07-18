@@ -40,12 +40,12 @@ CREATE (svt:Process:Transition {name: "Service Validation & Testing", abb: "SVT"
 CREATE (stratm:Process:Strategy {name: "Strategy Management", abb: "STM"});
 CREATE (sm:Process:Design {name: "Supplier Management", abb: "SUM"});
 CREATE (tps:Process:Transition {name: "Transition Planning & Support", abb: "TPS"});`
-CREATE (cmdb:Source {name: "Configuration Management Database"});
-CREATE (cms:Source {name: "Configuration Management System"});
-CREATE (dml:Source {name: "Definitive Media Library"});
-CREATE (kedb:Source {name: "Known Error Database"});
-CREATE (sc:Source {name: "Service Catalogue"});
-CREATE (skms:Source {name: "Service Knowledge Management System"});
+CREATE (cmdb:Source {name: "Configuration Management Database", abb: "CMDB"});
+CREATE (cms:Source {name: "Configuration Management System", abb: "CMS"});
+CREATE (dml:Source {name: "Definitive Media Library", abb: "DML"});
+CREATE (kedb:Source {name: "Known Error Database", abb: "KEDB"});
+CREATE (sc:Source {name: "Service Catalogue", abb: "SC"});
+CREATE (skms:Source {name: "Service Knowledge Management System", abb: "SKMS"});
 MATCH (p1:Process), (p2:Process) WHERE p1.name = "Access Management" AND p2.name = "Change Management" CREATE (p1)-[:REPORTS_TO {items: "RfC"}]->(p2) RETURN p1, p2;
 MATCH (p:Process), (s:Source) WHERE p.name = "Access Management" AND s.name = "Configuration Management System" CREATE (p)-[:FILLS]->(s) RETURN p, s;
 MATCH (p1:Process), (p2:Process) WHERE p1.name = "Availability Management" AND p2.name = "Service Level Management" CREATE (p1)-[:REPORTS_TO {items: "Availability, MTRS, MTBSI, MTBF"}]->(p2) RETURN p1, p2;
@@ -138,4 +138,3 @@ Phases are:
 ```cypher
 MATCH (p:Process), (s:Source) RETURN p, s;
 ```
-
