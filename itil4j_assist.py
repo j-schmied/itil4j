@@ -53,15 +53,18 @@ def is_valid_relationship(relationship) -> bool:
 
 
 def print_valid_processes() -> None:
-    print(PROCESSES)
+    for process in PROCESSES:
+        print(f"{process} - {PROCESSES[process]}")
 
 
 def print_valid_sources() -> None:
-    print(SOURCES)
+    for source in SOURCES:
+        print(f"{source} - {SOURCES[source]}")
 
 
-def print_valid_relationships():
-    print(RELATIONSHIPS)
+def print_valid_relationships() -> None:
+    for relationship in RELATIONSHIPS:
+        print(relationship)
 
 
 class Neo4jAssist:
@@ -112,6 +115,8 @@ class Neo4jAssist:
 def main():
     itil4j = Neo4jAssist()
 
+    print("\n---- ITIL4J Assist ----")
+
     while True:
         print("\n")
         print("[1] Create new relationship")
@@ -121,13 +126,13 @@ def main():
         print("[5] Print valid sources")
         print("[6] Print valid relationships")
         print("[0] Exit")
-        print("\n")
 
         choice = input("[?] Enter your choice: ")
 
+        print("\n")
+
         match choice:
             case "1":
-                print("\n")
                 start_node = input("[?] Enter start node: ")
                 end_node = input("[?] Enter end node: ")
                 relationship_type = input("[?] Enter relationship type: ")
@@ -154,13 +159,10 @@ def main():
                 break
             case "4":
                 print_valid_processes()
-                break
             case "5":
                 print_valid_sources()
-                break
             case "6":
                 print_valid_relationships()
-                break
             case "0":
                 break
             case _:
