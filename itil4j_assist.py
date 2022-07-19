@@ -76,7 +76,7 @@ class Neo4jAssist:
 
     def print_process_dependencies(self, process):
         with self.driver.session() as session:
-            dependencies = session.write_transaction(self._get_process_dependencies, process)
+            dependencies = session.write_transaction(self._get_dependencies_for_process, process)
             print(dependencies)
 
     @staticmethod
@@ -102,7 +102,7 @@ def main():
     itil4j = Neo4jAssist()
 
     while True:
-        print("\n\n")
+        print("\n")
         print("[1] Create new relationship")
         print("[2] Print dependency graph")
         print("[3] Print process dependencies")
@@ -122,16 +122,23 @@ def main():
                 properties = input("[?] Enter properties (optional): ")
                 if properties == "":
                     properties = None
-                else:
+                elif not properties == "":
                     properties = eval(properties)
-                itil4j.new_relationship(start_node, end_node, relationship_type, properties)
+
+                if is_valid_process(start_node) and is_valid_process(end_node):
+                    itil4j.new_relationship(start_node, end_node, relationship_type, properties)
+                else:
+                    print("[!] Invalid process")
                 break
             case "2":
                 itil4j.print_dependency_graph()
                 break
             case "3":
                 process = input("[?] Enter process: ")
-                itil4j.print_process_dependencies(process)
+                if is_valid_process(process):
+                    itil4j.print_process_dependencies(process)
+                else:
+                    print("[!] Invalid process")
                 break
             case "4":
                 print_valid_processes()
