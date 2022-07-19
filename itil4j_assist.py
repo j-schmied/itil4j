@@ -101,9 +101,51 @@ class Neo4jAssist:
 def main():
     itil4j = Neo4jAssist()
 
-    # Do things
+    while True:
+        print("\n\n")
+        print("[1] Create new relationship")
+        print("[2] Print dependency graph")
+        print("[3] Print process dependencies")
+        print("[4] Print valid processes")
+        print("[5] Print valid sources")
+        print("[0] Exit")
+        print("\n")
+
+        choice = input("[?] Enter your choice: ")
+
+        match choice:
+            case "1":
+                print("\n")
+                start_node = input("[?] Enter start node: ")
+                end_node = input("[?] Enter end node: ")
+                relationship_type = input("[?] Enter relationship type: ")
+                properties = input("[?] Enter properties (optional): ")
+                if properties == "":
+                    properties = None
+                else:
+                    properties = eval(properties)
+                itil4j.new_relationship(start_node, end_node, relationship_type, properties)
+                break
+            case "2":
+                itil4j.print_dependency_graph()
+                break
+            case "3":
+                process = input("[?] Enter process: ")
+                itil4j.print_process_dependencies(process)
+                break
+            case "4":
+                print_valid_processes()
+                break
+            case "5":
+                print_valid_sources()
+                break
+            case "0":
+                break
+            case _:
+                print("[!] Invalid choice")
 
     itil4j.close()
+    exit(0)
 
 
 if __name__ == "__main__":
