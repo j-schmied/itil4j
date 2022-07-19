@@ -1,5 +1,4 @@
 #!/usr/bin/env python3
-from json import JSONEncoder
 from neo4j import GraphDatabase
 
 NEO4J_URL: str = "bolt://localhost:7687"
@@ -140,7 +139,7 @@ def main():
                 if properties == "":
                     properties = None
                 elif not properties == "":
-                    properties = JSONEncoder.encode("{items: '" + properties + "'}")
+                    properties = "{items: '" + properties + "'}"
 
                 if is_valid_process(start_node) and is_valid_process(end_node) and is_valid_relationship(relationship_type):
                     itil4j.new_relationship(start_node, end_node, relationship_type, properties)
