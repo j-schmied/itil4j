@@ -1,4 +1,5 @@
 #!/usr/bin/env python3
+from json import JSONEncoder
 from neo4j import GraphDatabase
 
 NEO4J_URL: str = "bolt://localhost:7687"
@@ -36,6 +37,8 @@ SOURCES: dict = {"CMDB": "Configuration Management Database",
                  "SC": "Service Catalogue",
                  "SKMS": "Service Knowledge Management System"}
 
+RELATIONSHIPS = ["REPORTS_TO", "FILLS", "SERVES"]
+
 
 def is_valid_process(process) -> bool:
     return process in PROCESSES
@@ -45,12 +48,20 @@ def is_valid_source(source) -> bool:
     return source in SOURCES
 
 
+def is_valid_relationship(relationship) -> bool:
+    return relationship in RELATIONSHIPS
+
+
 def print_valid_processes() -> None:
     print(PROCESSES)
 
 
 def print_valid_sources() -> None:
     print(SOURCES)
+
+
+def print_valid_relationships():
+    print(RELATIONSHIPS)
 
 
 class Neo4jAssist:
@@ -108,6 +119,7 @@ def main():
         print("[3] Print process dependencies")
         print("[4] Print valid processes")
         print("[5] Print valid sources")
+        print("[6] Print valid relationships")
         print("[0] Exit")
         print("\n")
 
@@ -119,16 +131,16 @@ def main():
                 start_node = input("[?] Enter start node: ")
                 end_node = input("[?] Enter end node: ")
                 relationship_type = input("[?] Enter relationship type: ")
-                properties = input("[?] Enter properties (optional): ")
+                properties = input("[?] Enter items property (optional): ")
                 if properties == "":
                     properties = None
                 elif not properties == "":
-                    properties = eval(properties)
+                    properties = JSONEncoder.encode("{items: '" + properties + "'}")
 
-                if is_valid_process(start_node) and is_valid_process(end_node):
+                if is_valid_process(start_node) and is_valid_process(end_node) and is_valid_relationship(relationship_type):
                     itil4j.new_relationship(start_node, end_node, relationship_type, properties)
                 else:
-                    print("[!] Invalid process")
+                    print("[!] Invalid process or relationship type")
                 break
             case "2":
                 itil4j.print_dependency_graph()
@@ -145,6 +157,9 @@ def main():
                 break
             case "5":
                 print_valid_sources()
+                break
+            case "6":
+                print_valid_relationships()
                 break
             case "0":
                 break
