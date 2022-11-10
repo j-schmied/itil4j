@@ -1,1 +1,2 @@
 neo4j
+git+https://github.com/ybaktir/networkx-neo4j@master
