@@ -1,4 +1,5 @@
 #!/usr/bin/env python3
+import nxneo4j as nx
 from neo4j import GraphDatabase
 
 NEO4J_URL: str = "bolt://localhost:7687"
@@ -70,6 +71,7 @@ class Neo4jAssist:
 
     def __init__(self, uri=NEO4J_URL):
         self.driver = GraphDatabase.driver(uri)
+        self.gnx = nx.DiGraph(self.driver)
 
     def close(self):
         self.driver.close()
@@ -85,7 +87,7 @@ class Neo4jAssist:
     def print_dependency_graph(self):
         with self.driver.session() as session:
             graph = session.write_transaction(self._get_dependency_graph)
-            print(graph)
+            nx.draw(self.gnx)
 
     def print_process_dependencies(self, process):
         with self.driver.session() as session:
@@ -101,14 +103,29 @@ class Neo4jAssist:
 
     @staticmethod
     def _get_dependency_graph(tx):
-        result = tx.run("MATCH (p:Process), (s:Source) RETURN p, s")
-        return result
+        graph = []
+        result = tx.run("MATCH (p:Process), (s:Source) RETURN p AS Process, s AS Source")
+
+        for record in result:
+            graph.append(record['Process'] if record['Process'] is not None else record['Source'])
+
+        return graph
 
     @staticmethod
     def _get_dependencies_for_process(tx, process):
+        graph = []
         result = tx.run("MATCH (p:Process {name: '$process'}) OPTIONAL MATCH (p)-[r]-(f) RETURN p, r, f",
                         process=process)
-        return result
+
+        for record in result:
+            if record['p'] is not None:
+                graph.append(record['p'])
+            if record['r'] is not None:
+                graph.append(record['r'])
+            if record['f'] is not None:
+                graph.append(record['f'])
+
+        return graph
 
 
 def main():
